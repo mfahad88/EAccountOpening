@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.FormFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_view_form"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:contentPadding="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/linear_cnic"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="CNIC: "
+                    android:textAlignment="viewEnd"
+                    android:layout_weight="0.3"
+                    android:gravity="end" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLength="15"
+                    android:digits="@string/number"
+                    android:inputType="number"
+                    android:layout_weight="0.7"
+                    android:longClickable="false"
+                    android:id="@+id/edt_cnic"
+                    android:singleLine="true"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/linear_cnic"
+                android:id="@+id/linear_issue_date"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Issue Date: "
+                    android:textAlignment="viewEnd"
+                    android:layout_weight="0.3"
+                    android:gravity="end" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/number"
+                    android:inputType="number"
+                    android:layout_weight="0.7"
+                    android:longClickable="false"
+                    android:id="@+id/edt_issue_date"
+                    android:singleLine="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/linear_issue_date"
+                android:id="@+id/linear_full_name"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Fullname: "
+                    android:textAlignment="viewEnd"
+                    android:layout_weight="0.3"
+                    android:gravity="end" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/alphabets"
+                    android:inputType="textPersonName"
+                    android:maxLength="100"
+                    android:layout_weight="0.7"
+                    android:longClickable="false"
+                    android:id="@+id/edt_full_name"
+                    android:singleLine="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/linear_full_name"
+                android:id="@+id/linear_mother_name"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Mother Name: "
+                    android:textAlignment="viewEnd"
+                    android:layout_weight="0.3"
+                    android:gravity="end" />
+
+                <EditText
+                    android:id="@+id/edt_mother_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:digits="@string/alphabets"
+                    android:inputType="textPersonName"
+                    android:longClickable="false"
+                    android:maxLength="100"
+                    android:singleLine="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/linear_mother_name"
+                android:id="@+id/linear_dob"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Date of Birth: "
+                    android:textAlignment="viewEnd"
+                    android:layout_weight="0.3"
+                    android:gravity="end" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/number"
+                    android:inputType="number"
+                    android:layout_weight="0.7"
+                    android:longClickable="false"
+                    android:id="@+id/edt_dob"
+                    android:singleLine="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/linear_dob"
+                android:id="@+id/linear_pob"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Place of Birth: "
+                    android:textAlignment="viewEnd"
+                    android:layout_weight="0.3"
+                    android:gravity="end" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/alphabets"
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:layout_weight="0.7"
+                    android:longClickable="false"
+                    android:id="@+id/edt_pob"
+                    android:singleLine="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/linear_pob"
+                android:gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:weightSum="1">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Next"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/btn_next"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>
