@@ -15,7 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
  
 
-    public static final String BASE_URL = "http://172.28.28.48:8080/bulk/";
+    public static final String BASE_URL = "http://172.28.28.35:8080/bulk/";
+//    public static final String BASE_URL = "http://172.28.28.35:8080/bulk/";
 //      public static final String BASE_URL = "http://172.28.28.51:8080/api/";
 //      public static final String BASE_URL = "http://192.168.1.7:8080/";
     private static Retrofit retrofit = null;
@@ -42,9 +43,9 @@ public class ApiClient {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient httpClient = new OkHttpClient.Builder()
         .addInterceptor(interceptor)
-        .connectTimeout(40,TimeUnit.MINUTES)
-        .readTimeout(30,TimeUnit.MINUTES)
-        .writeTimeout(20, TimeUnit.MINUTES)
+        .connectTimeout(40,TimeUnit.SECONDS)
+        .readTimeout(30,TimeUnit.SECONDS)
+        .writeTimeout(20, TimeUnit.SECONDS)
         .build();
         return httpClient;
     }

@@ -139,6 +139,32 @@
                     android:id="@+id/btn_ok"/>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/linear_submit"
+                android:id="@+id/linear_progress"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linear_submit"
+                    android:id="@+id/progressBar"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Please wait..."
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+
         </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>

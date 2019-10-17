@@ -98,6 +98,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
                 Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
                         byteArray.length);
+                img_cnic.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
                 img_cnic.setImageBitmap(bitmap);
                 if(!hasNullOrEmptyDrawable(img_cnic)){

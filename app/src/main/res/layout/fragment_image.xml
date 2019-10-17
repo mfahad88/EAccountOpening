@@ -15,11 +15,10 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_below="@id/btn_take_img"
         android:id="@+id/img_cnic"
-        android:scaleType="centerCrop"
-        android:layout_margin="20dp"/>
+        />
 
     <Button
         android:layout_width="wrap_content"

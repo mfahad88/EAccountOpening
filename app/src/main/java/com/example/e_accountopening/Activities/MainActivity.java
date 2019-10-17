@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements ScreenInterface {
             requestPermission();
         }
         replaceFragment(new FormFragment());
-//            replaceFragment(new SummaryFragment());
+//            replaceFragment(new VideoFragment());
     }
 
     @Override

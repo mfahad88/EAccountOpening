@@ -14,14 +14,17 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.e_accountopening.Helper.CameraPreview;
@@ -32,6 +35,8 @@ import com.example.e_accountopening.Services.VideoIntentService;
 
 import java.io.File;
 import java.io.IOException;
+
+import static android.content.Context.WINDOW_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,12 +49,32 @@ public class VideoFragment extends Fragment implements View.OnClickListener,Surf
     private Camera mCamera;
     private SurfaceView mSurfaceView;
     private SurfaceHolder mHolder;
+    private TextView tv_timer;
     private boolean mInitSuccesful;
     private File file;
     public VideoFragment() {
         // Required empty public constructor
     }
 
+    public String formatTime(long millis) {
+        String output = "00:00";
+        long seconds = millis / 1000;
+        long minutes = seconds / 60;
+
+        seconds = seconds % 60;
+        minutes = minutes % 60;
+
+        String sec = String.valueOf(seconds);
+        String min = String.valueOf(minutes);
+
+        if (seconds < 10)
+            sec = "0" + seconds;
+        if (minutes < 10)
+            min= "0" + minutes;
+
+        output = min + " : " + sec;
+        return output;
+    }//formatTime
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +89,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener,Surf
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+        tv_timer=rootView.findViewById(R.id.tv_timer);
         btn_next=rootView.findViewById(R.id.btn_next);
         btn_record=rootView.findViewById(R.id.btn_record);
         mSurfaceView =rootView.findViewById(R.id.surface_camera);
@@ -79,6 +105,8 @@ public class VideoFragment extends Fragment implements View.OnClickListener,Surf
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.btn_record){
+
+
             if(!mInitSuccesful){
                 try {
                     initRecorder(mHolder.getSurface());
@@ -88,6 +116,18 @@ public class VideoFragment extends Fragment implements View.OnClickListener,Surf
             }
             mMediaRecorder.start();
             btn_record.setEnabled(false);
+            new CountDownTimer(10000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    tv_timer.setText(""+formatTime(millisUntilFinished));
+                    //here you can have your logic to set text to edittext
+                }
+
+                public void onFinish() {
+
+                }
+
+            }.start();
 
             Handler handler = new Handler();
             handler.postDelayed(new Runnable()  {
@@ -130,7 +170,8 @@ public class VideoFragment extends Fragment implements View.OnClickListener,Surf
         // It is very important to unlock the camera before doing setCamera
         // or it will results in a black preview
         if(mCamera == null) {
-            mCamera = Camera.open();
+            mCamera = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
+            mCamera.setDisplayOrientation(90);
             mCamera.unlock();
 
         }
@@ -147,6 +188,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener,Surf
         mMediaRecorder.setVideoFrameRate(30);
         mMediaRecorder.setVideoSize(640, 480);
         mMediaRecorder.setMaxDuration(10000);
+        mMediaRecorder.setOrientationHint(270);
         mMediaRecorder.setOutputFile(VIDEO_PATH_NAME);
 
         try {
@@ -185,7 +227,30 @@ public class VideoFragment extends Fragment implements View.OnClickListener,Surf
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+    public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
+
+        /*Camera.Parameters parameters = mCamera.getParameters();
+        Display display = ((WindowManager)rootView.getContext().getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+
+        if(display.getRotation() == Surface.ROTATION_0) {
+            parameters.setPreviewSize(height, width);
+            mCamera.setDisplayOrientation(90);
+        }
+
+        if(display.getRotation() == Surface.ROTATION_90) {
+            parameters.setPreviewSize(width, height);
+        }
+
+        if(display.getRotation() == Surface.ROTATION_180) {
+            parameters.setPreviewSize(height, width);
+        }
+
+        if(display.getRotation() == Surface.ROTATION_270) {
+            parameters.setPreviewSize(width, height);
+            mCamera.setDisplayOrientation(180);
+        }
+
+        mCamera.setParameters(parameters);*/
 
     }
 

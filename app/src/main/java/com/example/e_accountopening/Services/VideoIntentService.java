@@ -44,7 +44,7 @@ public class VideoIntentService extends IntentService {
                 public void onResponse(Call<String> call, Response<String> response) {
                     Log.wtf("VideoIntentService",response.body());
                     if(response.isSuccessful()){
-
+                        Log.wtf("VideoIntentService",response.body());
                     }else{
                         Toast.makeText(VideoIntentService.this, ""+response.message(), Toast.LENGTH_SHORT).show();
                     }

@@ -9,8 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +90,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
         edt_full_name.setInputType(InputType.TYPE_CLASS_TEXT| InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         edt_mother_name.setInputType(InputType.TYPE_CLASS_TEXT| InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         edt_pob.setInputType(InputType.TYPE_CLASS_TEXT| InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+
         return rootView;
     }
 
@@ -112,7 +117,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
 
 
             if(!TextUtils.isEmpty(edt_cnic.getText()) && !TextUtils.isEmpty(edt_issue_date.getText())
-            && !TextUtils.isEmpty(edt_full_name.getText()) && !TextUtils.isEmpty(edt_mother_name.getText())
+                    && !TextUtils.isEmpty(edt_full_name.getText()) && !TextUtils.isEmpty(edt_mother_name.getText())
                     && !TextUtils.isEmpty(edt_dob.getText()) && !TextUtils.isEmpty(edt_pob.getText())){
                 if(isValidCnic && isValidPob && isValidMothername && isValidFullname) {
                     Intent intent = new Intent(rootView.getContext(), FormIntentService.class);
@@ -144,40 +149,40 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
 
     @Override
     public void onFocusChange(View view, boolean b) {
-            if(b) {
-                if (view.getId() == R.id.edt_issue_date) {
-                    final Calendar cldr = Calendar.getInstance();
-                    int day = cldr.get(Calendar.DAY_OF_MONTH);
-                    int month = cldr.get(Calendar.MONTH);
-                    int year = cldr.get(Calendar.YEAR);
+        if(b) {
+            if (view.getId() == R.id.edt_issue_date) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
 
-                    DatePickerDialog picker = new DatePickerDialog(rootView.getContext(), new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                DatePickerDialog picker = new DatePickerDialog(rootView.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
 
-                            edt_issue_date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                        }
-                    }, year, month, day);
-                    picker.show();
+                        edt_issue_date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                    }
+                }, year, month, day);
+                picker.show();
 
-                }
-
-                if (view.getId() == R.id.edt_dob) {
-                    final Calendar cldr = Calendar.getInstance();
-                    int day = cldr.get(Calendar.DAY_OF_MONTH);
-                    int month = cldr.get(Calendar.MONTH);
-                    int year = cldr.get(Calendar.YEAR);
-
-                    DatePickerDialog picker = new DatePickerDialog(rootView.getContext(), new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-
-                            edt_dob.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                        }
-                    }, year, month, day);
-                    picker.show();
-
-                }
             }
+
+            if (view.getId() == R.id.edt_dob) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+
+                DatePickerDialog picker = new DatePickerDialog(rootView.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+
+                        edt_dob.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                    }
+                }, year, month, day);
+                picker.show();
+
+            }
+        }
     }
 }

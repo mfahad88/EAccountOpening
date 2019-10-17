@@ -24,12 +24,12 @@ public class Utils {
         editor.apply();
     }
 
-    public static void savePreferences(Context context,String key,int value){
+  /*  public static void savePreferences(Context context,String key,int value){
         SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         editor.putInt(key,value);
         editor.commit();
         editor.apply();
-    }
+    }*/
 
     public static String getPreferences(Context context,String key){
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);

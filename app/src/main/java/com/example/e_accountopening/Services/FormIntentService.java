@@ -58,7 +58,7 @@ public class FormIntentService extends IntentService {
                 public void onResponse(Call<CreateAccountResponse> call, Response<CreateAccountResponse> response) {
                     if(response.isSuccessful()){
                         Log.wtf("Response",response.body().toString());
-                        Utils.savePreferences(FormIntentService.this,"RefId",response.body().getRefId().intValue());
+                        Utils.savePreferences(FormIntentService.this,"RefId", String.valueOf(response.body().getRefId().intValue()));
                     }else{
                         Toast.makeText(FormIntentService.this, ""+response.message(), Toast.LENGTH_SHORT).show();
 
