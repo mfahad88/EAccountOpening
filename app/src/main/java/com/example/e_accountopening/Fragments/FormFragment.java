@@ -58,6 +58,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
     private boolean isValidMothername=false;
     private boolean isValidPob=false;
 
+    FormResultReceiver resultReceiver;
     public FormFragment() {
         // Required empty public constructor
     }
@@ -77,7 +78,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView=inflater.inflate(R.layout.fragment_form, container, false);
-
+        resultReceiver=new FormResultReceiver(new Handler());
         edt_cnic=rootView.findViewById(R.id.edt_cnic);
         edt_issue_date=rootView.findViewById(R.id.edt_issue_date);
         edt_full_name=rootView.findViewById(R.id.edt_full_name);
@@ -130,9 +131,10 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
                     intent.putExtra(MOTHER_NAME, edt_mother_name.getText().toString());
                     intent.putExtra(DOB, edt_dob.getText().toString());
                     intent.putExtra(POB, edt_pob.getText().toString());
+                    intent.putExtra("receiver", resultReceiver);
                     Utils.savePreferences(rootView.getContext(), CNIC, edt_cnic.getText().toString());
                     getActivity().startService(intent);
-                    replaceFragment(new ImageFragment());
+                    
 
                 }else{
                     Toast.makeText(rootView.getContext(), "Please provide valid input...", Toast.LENGTH_SHORT).show();
@@ -191,5 +193,23 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
         }
     }
 
+    private class FormResultReceiver extends ResultReceiver {
+        public  boolean isFormDone=false;
+        public FormResultReceiver(Handler handler) {
+            super(handler);
+        }
 
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            if(resultCode==200){
+                isFormDone=resultData.getBoolean(FormIntentService.ISFORMDONE);
+                if(isFormDone){
+                    replaceFragment(new ImageFragment());
+                }else{
+                    Toast.makeText(rootView.getContext(), "Please check internet connection or webservice not responding...", Toast.LENGTH_SHORT).show();
+                }
+            }
+            super.onReceiveResult(resultCode, resultData);
+        }
+    }
 }

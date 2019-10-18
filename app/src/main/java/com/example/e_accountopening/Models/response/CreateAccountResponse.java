@@ -138,4 +138,21 @@ public void setEkyc(Integer ekyc) {
 this.ekyc = ekyc;
 }
 
+    @Override
+    public String toString() {
+        return "CreateAccountResponse{" +
+                "refId=" + refId +
+                ", cnic='" + cnic + '\'' +
+                ", issueDate='" + issueDate + '\'' +
+                ", userName='" + userName + '\'' +
+                ", motherName='" + motherName + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", placeOfBirth='" + placeOfBirth + '\'' +
+                ", path=" + path +
+                ", imageName=" + imageName +
+                ", videoName=" + videoName +
+                ", rpaStatus=" + rpaStatus +
+                ", ekyc=" + ekyc +
+                '}';
+    }
 }

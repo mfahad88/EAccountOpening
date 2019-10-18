@@ -32,7 +32,9 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
     ImageView img_compliance;
     ImageView img_ekyc;
     ImageView img_account;
-    private boolean isVerisys,isCompliance,isEkyc,isAccount;
+    private int isVerisys=0;
+    private int isCompliance=0;
+    private int isEkyc=0;
     Button btn_ok;
     ImageResultReceiver imageResultReceiver;
     LinearLayout linear_progress;
@@ -95,7 +97,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
            if(resultCode==200){
 
                if(resultData.getInt(SummaryIntentService.VERISYS)==1){
-                   isVerisys=true;
+                   isVerisys=1;
                    img_verisys.setVisibility(View.VISIBLE);
                    new Thread(new Runnable() {
                        @Override
@@ -109,7 +111,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                        }
                    }).start();
                }if(resultData.getInt(SummaryIntentService.VERISYS)==2){
-                   isVerisys=false;
+                   isVerisys=2;
                    img_verisys.setVisibility(View.VISIBLE);
                    new Thread(new Runnable() {
                        @Override
@@ -125,7 +127,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                }
 
                if(resultData.getInt(SummaryIntentService.COMPLIANCE)==1){
-                   isCompliance=true;
+                   isCompliance=1;
                    img_compliance.setVisibility(View.VISIBLE);
                    new Thread(new Runnable() {
                        @Override
@@ -139,7 +141,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                        }
                    }).start();
                }if(resultData.getInt(SummaryIntentService.COMPLIANCE)==2){
-                   isCompliance=false;
+                   isCompliance=2;
                    img_compliance.setVisibility(View.VISIBLE);
                    new Thread(new Runnable() {
                        @Override
@@ -155,7 +157,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                }
 
                if(resultData.getInt(SummaryIntentService.EKYC)==1){
-                   isEkyc=true;
+                   isEkyc=1;
                    img_ekyc.setVisibility(View.VISIBLE);
                    new Thread(new Runnable() {
                        @Override
@@ -169,7 +171,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                        }
                    }).start();
                }if(resultData.getInt(SummaryIntentService.EKYC)==2){
-                   isEkyc=false;
+                   isEkyc=2;
                    img_ekyc.setVisibility(View.VISIBLE);
                    new Thread(new Runnable() {
                        @Override
@@ -184,7 +186,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                    }).start();
                }
 
-               if(isVerisys && isCompliance && isEkyc){
+               if(isVerisys==1 && isCompliance==1 && isEkyc==1){
                    img_account.setVisibility(View.VISIBLE);
                    new Thread(new Runnable() {
                        @Override
@@ -198,7 +200,8 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                        }
                    }).start();
                    linear_progress.setVisibility(View.GONE);
-               }else{
+               }
+               if(isVerisys==2 || isCompliance==2 || isEkyc==2){
                    img_account.setVisibility(View.VISIBLE);
                    new Thread(new Runnable() {
                        @Override

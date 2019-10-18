@@ -49,6 +49,7 @@ public class FormIntentService extends IntentService {
 
         if (intent != null) {
             final Bundle bundle=intent.getExtras();
+            final ResultReceiver receiver = intent.getParcelableExtra("receiver");
             Log.wtf("Bundle",bundle.toString());
             cnic=bundle.getString(FormFragment.CNIC);
             issue_date=bundle.getString(FormFragment.ISSUE_DATE);
@@ -56,6 +57,7 @@ public class FormIntentService extends IntentService {
             mother_name=bundle.getString(FormFragment.MOTHER_NAME);
             dob=bundle.getString(FormFragment.DOB);
             pob=bundle.getString(FormFragment.POB);
+            final Bundle b=new Bundle();
             CreateAccountBean bean=new CreateAccountBean(cnic,issue_date,full_name,mother_name,dob,pob);
 
             ApiClient.getInstance().CreateAccount(bean).enqueue(new Callback<CreateAccountResponse>() {
@@ -63,13 +65,17 @@ public class FormIntentService extends IntentService {
                 public void onResponse(Call<CreateAccountResponse> call, Response<CreateAccountResponse> response) {
                     if(response.isSuccessful()){
 
-
+                        isFormDone=true;
+                        b.putBoolean(ISFORMDONE,isFormDone);
                         Log.wtf("Response",response.body().toString());
                         Utils.savePreferences(FormIntentService.this,"RefId", String.valueOf(response.body().getRefId().intValue()));
+                        receiver.send(200,b);
 
                     }else{
-
+                        isFormDone=false;
+                        b.putBoolean(ISFORMDONE,isFormDone);
                         Toast.makeText(FormIntentService.this, ""+response.message(), Toast.LENGTH_SHORT).show();
+                        receiver.send(200,b);
 
                     }
 
@@ -78,6 +84,9 @@ public class FormIntentService extends IntentService {
                 @Override
                 public void onFailure(Call<CreateAccountResponse> call, Throwable t) {
                     t.printStackTrace();
+                    isFormDone=false;
+                    b.putBoolean(ISFORMDONE,isFormDone);
+                    receiver.send(200,b);
                     Toast.makeText(FormIntentService.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
