@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/card_view_form"
         app:cardElevation="5dp"
-        android:layout_centerInParent="true"
         app:cardCornerRadius="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="60dp"
         app:contentPadding="20dp">
 
         <RelativeLayout
@@ -32,7 +32,8 @@
                     android:layout_weight="0.3"
                     android:layout_gravity="start"
                     android:textAlignment="textStart"
-                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
                     android:text="Verisys"/>
 
                 <ImageView
@@ -58,7 +59,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
                     android:layout_gravity="start"
                     android:textAlignment="textStart"
                     android:text="Compliance"/>
@@ -85,7 +87,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
                     android:layout_gravity="start"
                     android:textAlignment="textStart"
                     android:text="E-kyc"/>
@@ -115,13 +118,13 @@
                     android:layout_gravity="start"
                     android:textAlignment="textStart"
                     android:textStyle="bold"
-                    android:textSize="24sp"
+                    android:textSize="19sp"
                     android:id="@+id/txt_acct"
                     android:text="Account Opening"/>
 
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/iconfinder_tick_mark"
                     android:scaleType="centerInside"
                     android:layout_weight="0.7"
