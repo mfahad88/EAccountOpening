@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
@@ -32,6 +34,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
     ImageView img_compliance;
     ImageView img_ekyc;
     ImageView img_account;
+    TextView txt_acct;
     private int isVerisys=0;
     private int isCompliance=0;
     private int isEkyc=0;
@@ -58,6 +61,8 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
         img_account=rootView.findViewById(R.id.img_account);
 
         btn_ok=rootView.findViewById(R.id.btn_ok);
+
+        txt_acct=rootView.findViewById(R.id.txt_acct);
 
         btn_ok.setOnClickListener(this);
 
@@ -194,6 +199,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                            img_account.post(new Runnable() {
                                @Override
                                public void run() {
+                                   txt_acct.setTextColor(Color.GREEN);
                                    img_account.setImageDrawable(ContextCompat.getDrawable(rootView.getContext(),R.drawable.iconfinder_tick_mark));
                                }
                            });
@@ -209,6 +215,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                            img_account.post(new Runnable() {
                                @Override
                                public void run() {
+                                   txt_acct.setTextColor(Color.RED);
                                    img_account.setImageDrawable(ContextCompat.getDrawable(rootView.getContext(),R.drawable.iconfinder_delete));
                                }
                            });

@@ -113,7 +113,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
                 isValidMothername=true;
             }
 
-            if(edt_pob.getText().length()>4 && edt_pob.getText().length()<20){
+            if(edt_pob.getText().length()>3 && edt_pob.getText().length()<20){
                 isValidPob=true;
             }
 
