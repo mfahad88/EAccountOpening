@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -75,6 +77,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView=inflater.inflate(R.layout.fragment_form, container, false);
+
         edt_cnic=rootView.findViewById(R.id.edt_cnic);
         edt_issue_date=rootView.findViewById(R.id.edt_issue_date);
         edt_full_name=rootView.findViewById(R.id.edt_full_name);
@@ -109,7 +112,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
                 isValidMothername=true;
             }
 
-            if(edt_pob.getText().length()>2 && edt_pob.getText().length()<20){
+            if(edt_pob.getText().length()>4 && edt_pob.getText().length()<20){
                 isValidPob=true;
             }
 
@@ -130,9 +133,11 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
                     Utils.savePreferences(rootView.getContext(), CNIC, edt_cnic.getText().toString());
                     getActivity().startService(intent);
                     replaceFragment(new ImageFragment());
+
                 }else{
                     Toast.makeText(rootView.getContext(), "Please provide valid input...", Toast.LENGTH_SHORT).show();
                 }
+
             }
             else{
                 Toast.makeText(rootView.getContext(), "Please check the fields...", Toast.LENGTH_SHORT).show();
@@ -185,4 +190,6 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
             }
         }
     }
+
+
 }

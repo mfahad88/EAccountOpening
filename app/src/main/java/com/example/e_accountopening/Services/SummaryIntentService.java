@@ -12,6 +12,7 @@ import com.example.e_accountopening.Helper.Utils;
 import com.example.e_accountopening.Models.request.RefIdRequestBean;
 import com.example.e_accountopening.Models.response.RefIdResponse;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,7 +25,7 @@ public class SummaryIntentService extends IntentService {
     public static final String VERISYS="verisys";
     public static final String COMPLIANCE="compliance";
     public static final String EKYC="ekyc";
-
+    public boolean isRpa,isEkyc;
 
     public SummaryIntentService() {
         super("SummaryIntentService");
@@ -45,31 +46,34 @@ public class SummaryIntentService extends IntentService {
                     bundle.putInt(EKYC,1);
                     receiver.send(200,bundle);*/
                     ApiClient.getInstance().refId(new RefIdRequestBean(Utils.getPreferences(SummaryIntentService.this,"RefId")))
-                            .enqueue(new Callback<RefIdResponse>() {
+                            .enqueue(new Callback<List<RefIdResponse>>() {
                                 @Override
-                                public void onResponse(Call<RefIdResponse> call, Response<RefIdResponse> response) {
+                                public void onResponse(Call<List<RefIdResponse>> call, Response<List<RefIdResponse>> response) {
                                     if(response.isSuccessful()){
 
-                                        Bundle bundle = new Bundle();
-                                        if(response.body().getRpaStatus()==1){
-                                            bundle.putInt(VERISYS,response.body().getVerisysStatus().intValue());
-                                            bundle.putInt(COMPLIANCE,response.body().getCompStatus().intValue());
-                                            receiver.send(200,bundle);
+                                      for(RefIdResponse response1:response.body()){
+                                          Bundle bundle = new Bundle();
+                                          if(response1.getRpaStatus()==1){
+                                              bundle.putInt(VERISYS,response1.getVerisysStatus().intValue());
+                                              bundle.putInt(COMPLIANCE,response1.getCompStatus().intValue());
+                                              isRpa=true;
+                                              receiver.send(200,bundle);
 
-                                        }if(response.body().getEkyc()==1){
-                                            bundle.putInt(EKYC,response.body().getEkycResponse().intValue());
-                                            receiver.send(200,bundle);
-                                        }
-                                    }else{
-                                        Toast.makeText(SummaryIntentService.this, ""+response.message(), Toast.LENGTH_SHORT).show();
+                                          }if(response1.getEkyc()==1){
+                                              bundle.putInt(EKYC,response1.getEkycResponse().intValue());
+                                              isEkyc=true;
+                                              receiver.send(200,bundle);
+                                          }
+                                          if(isRpa && isEkyc){
+                                              timer.cancel();
+                                              timer.purge();
+                                          }
+                                      }
                                     }
-                                    timer.cancel();
-                                    timer.purge();
-
                                 }
 
                                 @Override
-                                public void onFailure(Call<RefIdResponse> call, Throwable t) {
+                                public void onFailure(Call<List<RefIdResponse>> call, Throwable t) {
                                     t.printStackTrace();
                                     timer.cancel();
                                     timer.purge();

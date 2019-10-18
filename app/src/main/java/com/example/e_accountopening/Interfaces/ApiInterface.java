@@ -4,6 +4,9 @@ import com.example.e_accountopening.Models.request.CreateAccountBean;
 import com.example.e_accountopening.Models.request.RefIdRequestBean;
 import com.example.e_accountopening.Models.response.CreateAccountResponse;
 import com.example.e_accountopening.Models.response.RefIdResponse;
+
+import java.util.List;
+
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -21,5 +24,5 @@ public interface ApiInterface {
     Call<String> uploadFile(@Part MultipartBody.Part filePart);
 
     @POST("refId")
-    Call<RefIdResponse> refId(@Body RefIdRequestBean bean);
+    Call<List<RefIdResponse>> refId(@Body RefIdRequestBean bean);
 }

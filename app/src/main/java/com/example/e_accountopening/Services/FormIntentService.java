@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,6 +16,8 @@ import com.example.e_accountopening.Helper.Utils;
 import com.example.e_accountopening.Models.request.CreateAccountBean;
 import com.example.e_accountopening.Models.response.CreateAccountResponse;
 import com.example.e_accountopening.R;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +37,8 @@ public class FormIntentService extends IntentService {
     private String mother_name;
     private String dob;
     private String pob;
-
+    public static final String ISFORMDONE="isFormDone";
+    public boolean isFormDone=false;
 
     public FormIntentService() {
         super("FormIntentService");
@@ -42,8 +46,8 @@ public class FormIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+
         if (intent != null) {
-            final String action = intent.getAction();
             final Bundle bundle=intent.getExtras();
             Log.wtf("Bundle",bundle.toString());
             cnic=bundle.getString(FormFragment.CNIC);
@@ -53,16 +57,22 @@ public class FormIntentService extends IntentService {
             dob=bundle.getString(FormFragment.DOB);
             pob=bundle.getString(FormFragment.POB);
             CreateAccountBean bean=new CreateAccountBean(cnic,issue_date,full_name,mother_name,dob,pob);
+
             ApiClient.getInstance().CreateAccount(bean).enqueue(new Callback<CreateAccountResponse>() {
                 @Override
                 public void onResponse(Call<CreateAccountResponse> call, Response<CreateAccountResponse> response) {
                     if(response.isSuccessful()){
+
+
                         Log.wtf("Response",response.body().toString());
                         Utils.savePreferences(FormIntentService.this,"RefId", String.valueOf(response.body().getRefId().intValue()));
+
                     }else{
+
                         Toast.makeText(FormIntentService.this, ""+response.message(), Toast.LENGTH_SHORT).show();
 
                     }
+
                 }
 
                 @Override
