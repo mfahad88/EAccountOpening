@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:maxLength="15"
                     android:digits="@string/number"
-                    android:inputType="number"
+                    android:inputType="numberSigned"
                     android:layout_weight="0.7"
                     android:longClickable="false"
                     android:id="@+id/edt_cnic"

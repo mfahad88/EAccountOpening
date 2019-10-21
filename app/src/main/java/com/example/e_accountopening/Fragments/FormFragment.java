@@ -31,6 +31,7 @@ import com.example.e_accountopening.Interfaces.ScreenInterface;
 import com.example.e_accountopening.R;
 import com.example.e_accountopening.Services.FormIntentService;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
@@ -57,6 +58,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
     private boolean isValidFullname=false;
     private boolean isValidMothername=false;
     private boolean isValidPob=false;
+    private SimpleDateFormat format;
 
     FormResultReceiver resultReceiver;
     public FormFragment() {
@@ -83,6 +85,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
         edt_issue_date=rootView.findViewById(R.id.edt_issue_date);
         edt_full_name=rootView.findViewById(R.id.edt_full_name);
         edt_mother_name=rootView.findViewById(R.id.edt_mother_name);
+        format=new SimpleDateFormat("dd-mm-yyyy");
         edt_dob=rootView.findViewById(R.id.edt_dob);
         edt_pob=rootView.findViewById(R.id.edt_pob);
         btn_next=rootView.findViewById(R.id.btn_next);
@@ -166,8 +169,18 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
                 DatePickerDialog picker = new DatePickerDialog(rootView.getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-
-                        edt_issue_date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        String day;
+                        String month;
+                        if(dayOfMonth<10){
+                            day="0"+dayOfMonth;
+                        }else{
+                            day= String.valueOf(dayOfMonth);
+                        }if(monthOfYear<10){
+                            month="0"+(monthOfYear+1);
+                        }else{
+                            month= String.valueOf(monthOfYear+1);
+                        }
+                        edt_issue_date.setText(day + "-" + month + "-" + year);
                     }
                 }, year, month, day);
                 picker.show();
@@ -183,8 +196,18 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
                 DatePickerDialog picker = new DatePickerDialog(rootView.getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-
-                        edt_dob.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        String day;
+                        String month;
+                        if(dayOfMonth<10){
+                            day="0"+dayOfMonth;
+                        }else{
+                            day= String.valueOf(dayOfMonth);
+                        }if(monthOfYear<10){
+                            month="0"+(monthOfYear+1);
+                        }else{
+                            month= String.valueOf(monthOfYear+1);
+                        }
+                        edt_dob.setText(day + "-" + month + "-" + year);
                     }
                 }, year, month, day);
                 picker.show();
