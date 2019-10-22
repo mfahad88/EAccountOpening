@@ -25,11 +25,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.e_accountopening.Activities.MainActivity;
 import com.example.e_accountopening.Helper.Utils;
-import com.example.e_accountopening.Interfaces.ScreenInterface;
 import com.example.e_accountopening.R;
 import com.example.e_accountopening.Services.FormIntentService;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -53,7 +52,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
     public static final String MOTHER_NAME="mother_name";
     public static final String DOB="dob";
     public static final String POB="pob";
-    private ScreenInterface screenInterface;
+
     private boolean isValidCnic=false;
     private boolean isValidFullname=false;
     private boolean isValidMothername=false;
@@ -65,15 +64,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
         // Required empty public constructor
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            screenInterface = (ScreenInterface) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement onSomeEventListener");
-        }
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -175,7 +166,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
                             day="0"+dayOfMonth;
                         }else{
                             day= String.valueOf(dayOfMonth);
-                        }if(monthOfYear<10){
+                        }if(monthOfYear<9){
                             month="0"+(monthOfYear+1);
                         }else{
                             month= String.valueOf(monthOfYear+1);
@@ -202,7 +193,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
                             day="0"+dayOfMonth;
                         }else{
                             day= String.valueOf(dayOfMonth);
-                        }if(monthOfYear<10){
+                        }if(monthOfYear<9){
                             month="0"+(monthOfYear+1);
                         }else{
                             month= String.valueOf(monthOfYear+1);

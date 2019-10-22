@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "188556690658",
+    "firebase_url": "https://e-accountopening.firebaseio.com",
+    "project_id": "e-accountopening",
+    "storage_bucket": "e-accountopening.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188556690658:android:c0d395e139f77962dd8abb",
+        "android_client_info": {
+          "package_name": "com.example.e_accountopening"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188556690658-fc965s36u0pp09gs6si1155oid28abtr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.e_accountopening",
+            "certificate_hash": "d205e19298d2eb6e60db064be32050031b3c876c"
+          }
+        },
+        {
+          "client_id": "188556690658-curbierk7i5d7cmkk0icjci7bttftptb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKi0vmGfRe9g8jv44D0d4mXQBiC2MAV7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188556690658-curbierk7i5d7cmkk0icjci7bttftptb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

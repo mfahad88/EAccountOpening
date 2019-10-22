@@ -36,7 +36,7 @@ public class ImageIntentService extends IntentService {
             Bundle bundle=intent.getExtras();
             byte[] byteArray=bundle.getByteArray("image");
             Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            File file=new File("/mnt/sdcard/"+ Utils.getPreferences(getApplicationContext(), FormFragment.CNIC)+".jpg");
+            final File file=new File("/mnt/sdcard/"+ Utils.getPreferences(getApplicationContext(), FormFragment.CNIC)+".jpg");
             try {
                 FileOutputStream fo = new FileOutputStream(file);
                 fo.write(byteArray);
@@ -50,7 +50,7 @@ public class ImageIntentService extends IntentService {
                         public void onResponse(Call<String> call, Response<String> response) {
                             Log.wtf("ImageIntentService",response.body());
                             if(response.isSuccessful()){
-
+//                                file.delete();
                             }else{
                                 Toast.makeText(ImageIntentService.this, ""+response.message(), Toast.LENGTH_SHORT).show();
                             }

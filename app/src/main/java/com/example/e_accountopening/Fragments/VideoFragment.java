@@ -152,9 +152,9 @@ public class VideoFragment extends Fragment implements View.OnClickListener,Surf
 
 
         }if(view.getId()==R.id.btn_next){
+            Intent intent=new Intent(rootView.getContext(), VideoIntentService.class);
+            getActivity().startService(intent);
             replaceFragment(new SummaryFragment());
-            /*Intent intent=new Intent(rootView.getContext(), VideoIntentService.class);
-            getActivity().startService(intent);*/
 
         }
     }
