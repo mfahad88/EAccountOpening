@@ -82,7 +82,7 @@ public class SummaryIntentService extends IntentService {
                             });
 
                 }
-            },0,2000);
+            },0,5000);
 
         }
     }

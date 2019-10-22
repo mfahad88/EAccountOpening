@@ -208,20 +208,23 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                    linear_progress.setVisibility(View.GONE);
                }
                if(isVerisys==2 || isCompliance==2 || isEkyc==2){
-                   img_account.setVisibility(View.VISIBLE);
-                   new Thread(new Runnable() {
-                       @Override
-                       public void run() {
-                           img_account.post(new Runnable() {
-                               @Override
-                               public void run() {
-                                   txt_acct.setTextColor(Color.RED);
-                                   img_account.setImageDrawable(ContextCompat.getDrawable(rootView.getContext(),R.drawable.iconfinder_delete));
-                               }
-                           });
-                       }
-                   }).start();
-                   linear_progress.setVisibility(View.GONE);
+                   if(isVerisys!=0 && isCompliance!=0 && isEkyc!=0){
+                       img_account.setVisibility(View.VISIBLE);
+                       new Thread(new Runnable() {
+                           @Override
+                           public void run() {
+                               img_account.post(new Runnable() {
+                                   @Override
+                                   public void run() {
+                                       txt_acct.setTextColor(Color.RED);
+                                       img_account.setImageDrawable(ContextCompat.getDrawable(rootView.getContext(),R.drawable.iconfinder_delete));
+                                   }
+                               });
+                           }
+                       }).start();
+                       linear_progress.setVisibility(View.GONE);
+                   }
+
                }
            }
             super.onReceiveResult(resultCode, resultData);
