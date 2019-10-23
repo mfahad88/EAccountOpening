@@ -43,6 +43,7 @@
             android:name=".Activities.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,10 +52,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="0239c9f686daf429fa2e6a9d19d5ec8ad2a53e87" />
-    </application>
+</application>
 
 </manifest>
