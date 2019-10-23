@@ -50,7 +50,7 @@ public class ImageIntentService extends IntentService {
                         public void onResponse(Call<String> call, Response<String> response) {
                             Log.wtf("ImageIntentService",response.body());
                             if(response.isSuccessful()){
-//                                file.delete();
+                                file.delete();
                             }else{
                                 Toast.makeText(ImageIntentService.this, ""+response.message(), Toast.LENGTH_SHORT).show();
                             }

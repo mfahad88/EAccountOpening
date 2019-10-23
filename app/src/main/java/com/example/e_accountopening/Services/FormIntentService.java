@@ -9,15 +9,12 @@ import android.os.ResultReceiver;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.e_accountopening.Activities.MainActivity;
 import com.example.e_accountopening.Clients.ApiClient;
 import com.example.e_accountopening.Fragments.FormFragment;
 import com.example.e_accountopening.Helper.Utils;
 import com.example.e_accountopening.Models.request.CreateAccountBean;
 import com.example.e_accountopening.Models.response.CreateAccountResponse;
-import com.example.e_accountopening.R;
 
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,7 +55,7 @@ public class FormIntentService extends IntentService {
             dob=bundle.getString(FormFragment.DOB);
             pob=bundle.getString(FormFragment.POB);
             final Bundle b=new Bundle();
-            CreateAccountBean bean=new CreateAccountBean(cnic,issue_date,full_name,mother_name,dob,pob);
+            CreateAccountBean bean=new CreateAccountBean(cnic,issue_date,full_name,mother_name,dob,pob,cnic+".jpg",cnic+".mp4");
 
             ApiClient.getInstance().CreateAccount(bean).enqueue(new Callback<CreateAccountResponse>() {
                 @Override

@@ -38,13 +38,13 @@ public class VideoIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         final File file=new File("/mnt/sdcard/"+ Utils.getPreferences(getApplicationContext(), FormFragment.CNIC)+".mp4");
         if(file.exists()){
-            MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(MediaType.parse("video/*"), file));
             ApiClient.getInstance().uploadFile(filePart).enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     Log.wtf("VideoIntentService",response.body());
                     if(response.isSuccessful()){
-//                        file.delete();
+                        file.delete();
                         Log.wtf("VideoIntentService",response.body());
                     }else{
                         Toast.makeText(VideoIntentService.this, ""+response.message(), Toast.LENGTH_SHORT).show();

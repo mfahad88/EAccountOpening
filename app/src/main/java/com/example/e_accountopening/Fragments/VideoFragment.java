@@ -120,11 +120,12 @@ public class VideoFragment extends Fragment implements View.OnClickListener,Surf
 
                 public void onTick(long millisUntilFinished) {
                     tv_timer.setText(""+formatTime(millisUntilFinished));
+
                     //here you can have your logic to set text to edittext
                 }
 
                 public void onFinish() {
-
+                    shutdown();
                 }
 
             }.start();
@@ -135,7 +136,7 @@ public class VideoFragment extends Fragment implements View.OnClickListener,Surf
                 public void run() {
                     //Display Data here
                     mInitSuccesful=false;
-                    shutdown();
+
                     btn_record.setEnabled(true);
                     File file=new File(VIDEO_PATH_NAME);
                     if(file.exists()){
@@ -203,15 +204,19 @@ public class VideoFragment extends Fragment implements View.OnClickListener,Surf
     }
 
     private void shutdown() {
-        // Release MediaRecorder and especially the Camera as it's a shared
-        // object that can be used by other applications
-        mMediaRecorder.reset();
-        mMediaRecorder.release();
-        mCamera.release();
+        try {
+            // Release MediaRecorder and especially the Camera as it's a shared
+            // object that can be used by other applications
+            mMediaRecorder.reset();
+            mMediaRecorder.release();
+            mCamera.release();
 
-        // once the objects have been released they can't be reused
-        mMediaRecorder = null;
-        mCamera = null;
+            // once the objects have been released they can't be reused
+            mMediaRecorder = null;
+            mCamera = null;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

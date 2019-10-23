@@ -5,29 +5,42 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.ImageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Take Image"
-        android:id="@+id/btn_take_img"
-        android:layout_centerHorizontal="true"/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_below="@id/btn_take_img"
-        android:id="@+id/img_cnic"
-        />
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:enabled="false"
-        android:id="@+id/btn_next"
-        android:layout_below="@id/img_cnic"/>
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Take Image"
+               android:id="@+id/btn_take_img"
+               android:layout_centerHorizontal="true"/>
+
+           <ImageView
+               android:layout_width="match_parent"
+               android:layout_height="400dp"
+               android:layout_below="@id/btn_take_img"
+               android:id="@+id/img_cnic"
+               />
+
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Next"
+               android:layout_centerHorizontal="true"
+               android:layout_marginTop="10dp"
+               android:enabled="false"
+               android:id="@+id/btn_next"
+               android:layout_below="@id/img_cnic"/>
+
+
+       </RelativeLayout>
+
+   </ScrollView>
 
 </RelativeLayout>

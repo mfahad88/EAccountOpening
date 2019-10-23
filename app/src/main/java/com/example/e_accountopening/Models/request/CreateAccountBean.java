@@ -7,14 +7,18 @@ public class CreateAccountBean {
     private String motherName;
     private String dateOfBirth;
     private String placeOfBirth;
+    private String imageName;
+    private String videoName;
 
-    public CreateAccountBean(String cnic, String issueDate, String userName, String motherName, String dateOfBirth, String placeOfBirth) {
+    public CreateAccountBean(String cnic, String issueDate, String userName, String motherName, String dateOfBirth, String placeOfBirth, String imageName, String videoName) {
         this.cnic = cnic;
         this.issueDate = issueDate;
         this.userName = userName;
         this.motherName = motherName;
         this.dateOfBirth = dateOfBirth;
         this.placeOfBirth = placeOfBirth;
+        this.imageName = imageName;
+        this.videoName = videoName;
     }
 
     public String getCnic() {
@@ -65,15 +69,19 @@ public class CreateAccountBean {
         this.placeOfBirth = placeOfBirth;
     }
 
-    @Override
-    public String toString() {
-        return "CreateAccountBean{" +
-                "cnic='" + cnic + '\'' +
-                ", issueDate='" + issueDate + '\'' +
-                ", userName='" + userName + '\'' +
-                ", motherName='" + motherName + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", placeOfBirth='" + placeOfBirth + '\'' +
-                '}';
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getVideoName() {
+        return videoName;
+    }
+
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
     }
 }
