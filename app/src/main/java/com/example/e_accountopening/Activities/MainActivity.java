@@ -20,6 +20,7 @@ import com.example.e_accountopening.Fragments.SummaryFragment;
 import com.example.e_accountopening.Fragments.VideoFragment;
 import com.example.e_accountopening.Interfaces.ScreenInterface;
 import com.example.e_accountopening.R;
+import com.example.e_accountopening.logs.RemoteLogCat;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
@@ -32,14 +33,21 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class MainActivity extends AppCompatActivity implements ScreenInterface {
     private static final int PERMISSION_REQUEST_CODE = 200;
     boolean doubleBackToExitPressedOnce = false;
+    RemoteLogCat logCat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(!checkPermission()){
-            requestPermission();
+
+        try{
+            if(!checkPermission()){
+                requestPermission();
+            }
+            replaceFragment(new FormFragment());
+        }catch (Exception e ){
+            e.printStackTrace();
+            logCat.log("error",this.getClass().getSimpleName()+"\n"+e.getMessage());
         }
-        replaceFragment(new FormFragment());
 //            replaceFragment(new SummaryFragment());
     }
 

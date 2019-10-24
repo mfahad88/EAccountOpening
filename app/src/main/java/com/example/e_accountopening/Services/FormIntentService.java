@@ -14,6 +14,7 @@ import com.example.e_accountopening.Fragments.FormFragment;
 import com.example.e_accountopening.Helper.Utils;
 import com.example.e_accountopening.Models.request.CreateAccountBean;
 import com.example.e_accountopening.Models.response.CreateAccountResponse;
+import com.example.e_accountopening.logs.RemoteLogCat;
 
 
 import retrofit2.Call;
@@ -36,7 +37,7 @@ public class FormIntentService extends IntentService {
     private String pob;
     public static final String ISFORMDONE="isFormDone";
     public boolean isFormDone=false;
-
+    private RemoteLogCat logCat;
     public FormIntentService() {
         super("FormIntentService");
     }
@@ -45,6 +46,7 @@ public class FormIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         if (intent != null) {
+            logCat=new RemoteLogCat();
             final Bundle bundle=intent.getExtras();
             final ResultReceiver receiver = intent.getParcelableExtra("receiver");
             Log.wtf("Bundle",bundle.toString());
@@ -85,6 +87,8 @@ public class FormIntentService extends IntentService {
                     b.putBoolean(ISFORMDONE,isFormDone);
                     receiver.send(200,b);
                     Toast.makeText(FormIntentService.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                    logCat.log("error",this.getClass().getSimpleName()+"\n"+t.getMessage());
+
                 }
             });
         }

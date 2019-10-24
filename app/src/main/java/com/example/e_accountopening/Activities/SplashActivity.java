@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.example.e_accountopening.R;
+import com.example.e_accountopening.logs.RemoteLogCat;
 import com.google.firebase.crash.FirebaseCrash;
 
 import io.fabric.sdk.android.Fabric;
@@ -29,12 +30,13 @@ import static android.Manifest.permission.SEND_SMS;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class SplashActivity extends AppCompatActivity {
-
+    RemoteLogCat logCat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_splash);
+        logCat=new RemoteLogCat();
         switchScreen();
     }
 
@@ -48,16 +50,25 @@ public class SplashActivity extends AppCompatActivity {
 
 
     public void switchScreen(){
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent=new Intent(SplashActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+        try {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
 
-            }
-        },5000);
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                    startActivity(intent);
+
+
+                }
+            }, 5000);
+        }catch (Exception e){
+            e.printStackTrace();
+            logCat.log("error",SplashActivity.this.getClass().getSimpleName()+"\n"+e.getMessage());
+
+        }
     }
 }

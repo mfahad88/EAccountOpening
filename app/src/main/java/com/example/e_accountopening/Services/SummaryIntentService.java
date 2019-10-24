@@ -11,6 +11,7 @@ import com.example.e_accountopening.Clients.ApiClient;
 import com.example.e_accountopening.Helper.Utils;
 import com.example.e_accountopening.Models.request.RefIdRequestBean;
 import com.example.e_accountopening.Models.response.RefIdResponse;
+import com.example.e_accountopening.logs.RemoteLogCat;
 
 import java.util.List;
 import java.util.Timer;
@@ -26,7 +27,7 @@ public class SummaryIntentService extends IntentService {
     public static final String COMPLIANCE="compliance";
     public static final String EKYC="ekyc";
     public boolean isRpa,isEkyc;
-
+    private RemoteLogCat logCat;
     public SummaryIntentService() {
         super("SummaryIntentService");
     }
@@ -35,6 +36,7 @@ public class SummaryIntentService extends IntentService {
     protected void onHandleIntent(final Intent intent) {
 
         if(intent!=null){
+            logCat=new RemoteLogCat();
             final ResultReceiver receiver = intent.getParcelableExtra("receiver");
             final Timer timer=new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
@@ -78,6 +80,7 @@ public class SummaryIntentService extends IntentService {
                                     timer.cancel();
                                     timer.purge();
                                     Toast.makeText(SummaryIntentService.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    logCat.log("error",this.getClass().getSimpleName()+"\n"+t.getMessage());
                                 }
                             });
 

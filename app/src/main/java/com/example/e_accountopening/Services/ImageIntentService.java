@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import com.example.e_accountopening.Clients.ApiClient;
 import com.example.e_accountopening.Fragments.FormFragment;
 import com.example.e_accountopening.Helper.Utils;
+import com.example.e_accountopening.logs.RemoteLogCat;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,6 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ImageIntentService extends IntentService {
+    private RemoteLogCat logCat;
     public ImageIntentService() {
         super("ImageIntentService");
     }
@@ -33,6 +35,7 @@ public class ImageIntentService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         if(intent!=null){
+            logCat=new RemoteLogCat();
             Bundle bundle=intent.getExtras();
             byte[] byteArray=bundle.getByteArray("image");
             Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
@@ -58,7 +61,9 @@ public class ImageIntentService extends IntentService {
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
+                            t.printStackTrace();
                             Toast.makeText(ImageIntentService.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                            logCat.log("error",this.getClass().getSimpleName()+"\n"+t.getMessage());
                         }
                     });
                 }

@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.e_accountopening.Helper.Utils;
 import com.example.e_accountopening.R;
 import com.example.e_accountopening.Services.FormIntentService;
+import com.example.e_accountopening.logs.RemoteLogCat;
 
 
 import java.text.SimpleDateFormat;
@@ -58,7 +59,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
     private boolean isValidMothername=false;
     private boolean isValidPob=false;
     private SimpleDateFormat format;
-
+    RemoteLogCat logCat;
     FormResultReceiver resultReceiver;
     public FormFragment() {
         // Required empty public constructor
@@ -80,6 +81,7 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
         edt_dob=rootView.findViewById(R.id.edt_dob);
         edt_pob=rootView.findViewById(R.id.edt_pob);
         btn_next=rootView.findViewById(R.id.btn_next);
+        logCat=new RemoteLogCat();
         btn_next.setOnClickListener(this);
         edt_issue_date.setInputType(InputType.TYPE_NULL);
         edt_dob.setInputType(InputType.TYPE_NULL);
@@ -94,51 +96,57 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
 
     @Override
     public void onClick(View view) {
-        if (view.getId()==R.id.btn_next){
-            if(edt_cnic.getText().length()==15){
-                isValidCnic=true;
-            }
+       try{
+           if (view.getId()==R.id.btn_next){
+               if(edt_cnic.getText().length()==15){
+                   isValidCnic=true;
+               }
 
-            if(edt_full_name.getText().length()>4 && edt_full_name.getText().length()<100){
-                isValidFullname=true;
-            }
+               if(edt_full_name.getText().length()>4 && edt_full_name.getText().length()<100){
+                   isValidFullname=true;
+               }
 
-            if(edt_mother_name.getText().length()>3 && edt_mother_name.getText().length()<100){
-                isValidMothername=true;
-            }
+               if(edt_mother_name.getText().length()>3 && edt_mother_name.getText().length()<100){
+                   isValidMothername=true;
+               }
 
-            if(edt_pob.getText().length()>3 ){
-                isValidPob=true;
-            }
-
-
+               if(edt_pob.getText().length()>3 ){
+                   isValidPob=true;
+               }
 
 
-            if(!TextUtils.isEmpty(edt_cnic.getText()) && !TextUtils.isEmpty(edt_issue_date.getText())
-                    && !TextUtils.isEmpty(edt_full_name.getText()) && !TextUtils.isEmpty(edt_mother_name.getText())
-                    && !TextUtils.isEmpty(edt_dob.getText()) && !TextUtils.isEmpty(edt_pob.getText())){
-                if(isValidCnic && isValidPob && isValidMothername && isValidFullname) {
-                    Intent intent = new Intent(rootView.getContext(), FormIntentService.class);
-                    intent.putExtra(CNIC, edt_cnic.getText().toString());
-                    intent.putExtra(ISSUE_DATE, edt_issue_date.getText().toString());
-                    intent.putExtra(FULL_NAME, edt_full_name.getText().toString());
-                    intent.putExtra(MOTHER_NAME, edt_mother_name.getText().toString());
-                    intent.putExtra(DOB, edt_dob.getText().toString());
-                    intent.putExtra(POB, edt_pob.getText().toString());
-                    intent.putExtra("receiver", resultReceiver);
-                    Utils.savePreferences(rootView.getContext(), CNIC, edt_cnic.getText().toString());
-                    getActivity().startService(intent);
-                    
 
-                }else{
-                    Toast.makeText(rootView.getContext(), "Please provide valid input...", Toast.LENGTH_SHORT).show();
-                }
 
-            }
-            else{
-                Toast.makeText(rootView.getContext(), "Please check the fields...", Toast.LENGTH_SHORT).show();
-            }
-        }
+               if(!TextUtils.isEmpty(edt_cnic.getText()) && !TextUtils.isEmpty(edt_issue_date.getText())
+                       && !TextUtils.isEmpty(edt_full_name.getText()) && !TextUtils.isEmpty(edt_mother_name.getText())
+                       && !TextUtils.isEmpty(edt_dob.getText()) && !TextUtils.isEmpty(edt_pob.getText())){
+                   if(isValidCnic && isValidPob && isValidMothername && isValidFullname) {
+                       Intent intent = new Intent(rootView.getContext(), FormIntentService.class);
+                       intent.putExtra(CNIC, edt_cnic.getText().toString());
+                       intent.putExtra(ISSUE_DATE, edt_issue_date.getText().toString());
+                       intent.putExtra(FULL_NAME, edt_full_name.getText().toString());
+                       intent.putExtra(MOTHER_NAME, edt_mother_name.getText().toString());
+                       intent.putExtra(DOB, edt_dob.getText().toString());
+                       intent.putExtra(POB, edt_pob.getText().toString());
+                       intent.putExtra("receiver", resultReceiver);
+                       Utils.savePreferences(rootView.getContext(), CNIC, edt_cnic.getText().toString());
+                       getActivity().startService(intent);
+
+
+                   }else{
+                       Toast.makeText(rootView.getContext(), "Please provide valid input...", Toast.LENGTH_SHORT).show();
+                   }
+
+               }
+               else{
+                   Toast.makeText(rootView.getContext(), "Please check the fields...", Toast.LENGTH_SHORT).show();
+               }
+           }
+       }catch (Exception e){
+           e.printStackTrace();
+           logCat.log("error",this.getClass().getSimpleName()+"\n"+e.getMessage());
+
+       }
 
     }
 
