@@ -99,11 +99,11 @@ public class FormFragment extends Fragment implements View.OnClickListener, View
                 isValidCnic=true;
             }
 
-            if(edt_full_name.getText().length()>4 && edt_full_name.getText().length()<50){
+            if(edt_full_name.getText().length()>4 && edt_full_name.getText().length()<100){
                 isValidFullname=true;
             }
 
-            if(edt_mother_name.getText().length()>4 && edt_mother_name.getText().length()<50){
+            if(edt_mother_name.getText().length()>3 && edt_mother_name.getText().length()<100){
                 isValidMothername=true;
             }
 
