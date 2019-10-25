@@ -58,7 +58,6 @@ public class FormIntentService extends IntentService {
             pob=bundle.getString(FormFragment.POB);
             final Bundle b=new Bundle();
             CreateAccountBean bean=new CreateAccountBean(cnic,issue_date,full_name,mother_name,dob,pob,cnic+".jpg",cnic+".mp4");
-
             ApiClient.getInstance().CreateAccount(bean).enqueue(new Callback<CreateAccountResponse>() {
                 @Override
                 public void onResponse(Call<CreateAccountResponse> call, Response<CreateAccountResponse> response) {
